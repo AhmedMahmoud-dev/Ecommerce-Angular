@@ -1,0 +1,22 @@
+<div class="flex flex-col items-center justify-center h-[100vh] bg-gradient-to-br from-gray-50 to-gray-100">
+  <!-- Sophisticated multi-ring loader -->
+  <div class="relative">
+    <!-- Outer decorative ring -->
+    <div class="w-20 h-20 border-2 border-gray-300 rounded-full opacity-20"></div>
+
+    <!-- Primary animated ring -->
+    <div
+      class="absolute top-1 left-1 w-18 h-18 border-3 border-transparent border-t-blue-500 border-r-blue-400 rounded-full animate-spin"
+      style="animation-duration: 1s;"></div>
+
+    <!-- Secondary counter-rotating ring -->
+    <div
+      class="absolute top-2 left-2 w-16 h-16 border-2 border-transparent border-b-purple-400 border-l-purple-300 rounded-full animate-spin"
+      style="animation-duration: 1.5s; animation-direction: reverse;"></div>
+
+    <!-- Center pulsing core -->
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div class="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse shadow-lg"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+@if(loading) {
+<app-loader></app-loader>
+}
+
+@if (!loading && count !== 0) {
+<div class="w-[95%] mx-auto px-4">
+  <!-- Wish List Header -->
+  <div class="bg-white rounded-lg shadow-sm p-6 my-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">Wish List</h1>
+    <div class="flex justify-between items-center flex-wrap gap-5 bg-gray-50 rounded-lg p-4">
+      <div class="text-md font-bold text-gray-600">
+        <span class="font-medium">Items in Wish List: </span>
+        <span class="font-bold text-gray-900 number"> {{count}} </span>
+      </div>
+      <div>
+        <button routerLink="/home"
+          class="group relative cursor-pointer overflow-hidden px-8 py-3 bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out border-0 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50 active:scale-95">
+          <span class="relative z-10 flex items-center justify-center gap-2">
+            <svg class="w-5 h-5 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Continue Shopping
+          </span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out">
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Wish List Body -->
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+    @for (item of dataList(); track dataList().id; let last = $last) {
+    <div class="flex md:items-center items-start sm:justify-between p-6 flex-wrap gap-5 md:flex-row flex-col relative"
+      [class.border-b]="!last" [class.border-gray-200]="!last" [ngClass]="{'blur-sm': subLoadingID == item.id}">
+
+      @if (subLoadingID == item.id) {
+      <div class="absolute inset-0 w-full h-full bg-transparent cursor-not-allowed z-10"></div>
+      }
+
+      <!-- Left Side: Image, Category, Brand -->
+      <div class="flex items-center space-x-6 flex-1 flex-wrap gap-5">
+        <!-- Product Image -->
+        <img [src]="item.imageCover" [alt]="item.title" [routerLink]="['/productdetails', item.id]" title="See Details"
+          class="w-22 h-22 object-cover rounded-sm bg-gray-100 cursor-pointer">
+        <div class="">
+          <h2 class="text-lg text-gray-700 line-clamp-1"> {{item.title.split(' ').slice(0, 6).join(' ') }} </h2>
+        </div>
+        <!-- Product Details -->
+        <div class="flex items-center gap-4 text-sm flex-wrap">
+          <div class="flex items-center gap-2">
+            <img [src]="item.category.image" [alt]="item.category.name" class="w-6 h-6 rounded flex-shrink-0">
+            <span class="text-gray-500"> {{item.category.name}} </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <img [src]="item.brand.image" [alt]="item.brand.name" class="w-6 h-6 rounded flex-shrink-0">
+            <span class="text-gray-500"> {{item.brand.name}} </span>
+          </div>
+        </div>
+      </div>
+      <!-- Right Side: remove button -->
+      <div class="flex items-center gap-5 flex-wrap">
+        <!-- (click)="addToCart(item.id)" -->
+        <button (click)="addToCart(item.id)"
+          class="flex items-center text-green-600 hover:text-green-800 transition-colors duration-200 cursor-pointer">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+            </path>
+          </svg>
+          Add to Cart
+        </button>
+        <button class="flex items-center text-red-500 hover:text-red-700 transition-colors duration-200 cursor-pointer"
+          (click)="removeProduct(item.id)">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+          </svg>
+          Remove
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}
+
+
+@if (count === 0) {
+<app-empty-cart name="Wish List"></app-empty-cart>
+}

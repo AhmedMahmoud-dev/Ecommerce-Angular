@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+:root {
+  --font-family: "Encode Sans Expanded", sans-serif;
+  --main-color: #0aad0a;
+}
+
+@font-face {
+  font-family: 'Encode Sans Expanded';
+  src: url('../public/fonts/EncodeSansExpanded-Light.ttf') format('truetype');
+  /* font-weight: 300; */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../public/fonts/Lato-Light.ttf') format('truetype');
+  /* font-weight: 300; */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../public/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  /* font-weight: 300; */
+  font-style: normal;
+}
+
+body {
+  /* font-family: 'Encode Sans Expanded', sans-serif; */
+  font-family: var(--font-family);
+  background-color: white;
+}
+
+.btn {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #14b8a6 100%);
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+}
+
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-danger:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+}
+
+.btn-danger:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(220, 38, 38, 0.3);
+}
+
+
+
+.number {
+  font-family: 'JetBrains Mono';
+}

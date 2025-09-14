@@ -1,0 +1,8 @@
+<!-- Loader -->
+@if(loading) {
+  <app-loader></app-loader>
+}
+
+@if (!loading) {
+  <app-category-slider [slideData]="dataList()"></app-category-slider>
+}

@@ -1,0 +1,48 @@
+@if (loading) {
+<app-loader></app-loader>
+} @else {
+<div class="container w-[95%] mx-auto mt-5">
+  @if (selectedImage) {
+  <div class="fixed inset-0 flex flex-col gap-4 items-center justify-center backdrop-blur-sm z-50"
+    (click)="closePreview()">
+    <div class="w-[400] h-[400px] mx-auto" (click)="$event.stopPropagation()">
+      <img [src]="selectedImage" alt="Preview" class="rounded-md shadow-lg w-full h-full">
+    </div>
+    <h3 (click)="$event.stopPropagation()" class="text-gray-500 text-2xl font-bold"> {{title}} </h3>
+  </div>
+  }
+  <div class="grid grid-cols-12 gap-4">
+    @for (item of dataList(); track $index + 'first') {
+    <div class="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-12">
+      <div (click)="openPreview(item.image, item.name)"
+        class="content p-4 rounded-md shadow-md hover:shadow-green-400 border border-gray-400 hover:border-green-400 duration-200 transition-all cursor-pointer">
+        <figure class="text-center">
+          <img class="mx-auto" [src]="item.image" [alt]="item.name">
+          <figcaption>
+            <h2 class="text-gray-500 text-lg font-bold">{{ item.name }}</h2>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    }
+  </div>
+  <!-- Pagination -->
+  <div class="pagination mt-5">
+    <div class="flex items-center gap-5 justify-center">
+      <button
+        class="disabled:cursor-not-allowed cursor-pointer px-4 py-2 border border-green-500 rounded-md duration-200 transition-all hover:bg-green-500 hover:text-white disabled:hover:bg-gray-300 disabled:hover:text-black disabled:border-gray-300 disabled:bg-gray-300"
+        (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Prev</button>
+      <div class="pages flex gap-3 items-center">
+        @for (page of pages; track $index; let i = $index) {
+        <button class="number border border-green-500 px-3 py-1 rounded-md cursor-pointer"
+          (click)="changePage(currentPage = i + 1)" [ngClass]="{'bg-green-500 text-white': currentPage == i + 1}">{{i +
+          1}}</button>
+        }
+      </div>
+      <button
+        class="disabled:cursor-not-allowed cursor-pointer px-4 py-2 border border-green-500 rounded-md duration-200 transition-all hover:bg-green-500 hover:text-white disabled:hover:bg-gray-300 disabled:hover:text-black disabled:border-gray-300 disabled:bg-gray-300"
+        (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+</div>
+}

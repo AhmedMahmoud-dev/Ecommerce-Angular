@@ -1,0 +1,60 @@
+<!-- Step 1: user asks to reset (by email) -->
+<section id="forgetPassword">
+  <div
+    class="border border-gray-100 px-3 py-5 sm:px-6 sm:py-6 md:px-10 md:py-8 lg:px-14 lg:py-10 w-full sm:w-[90%] lg:w-[60%] mx-auto flex flex-col space-y-8 mt-20 mb-8 rounded-md shadow-md">
+    <h1 class="text-center text-3xl font-bold text-green-500">Forget Password</h1>
+    <form [formGroup]="resetPassword.forgetPassword" (ngSubmit)="resetPassword.submitForgetPassword()"
+      class="flex flex-col gap-4">
+      <div>
+        <div class="relative">
+          <input type="email" id="Email" formControlName="email"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-md text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            placeholder=" " />
+          <label for="Email"
+            class="absolute text-sm text-gray-700 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+            Email
+          </label>
+        </div>
+        <div class="text-xs text-red-600 mt-0.5 ml-2">
+          @if (resetPassword.forgetPassword.get('email')?.touched &&
+          resetPassword.forgetPassword.get('email')?.hasError('required')) {
+          <span>Email is required.</span>
+          }
+          @else if (resetPassword.forgetPassword.get('email')?.touched &&
+          resetPassword.forgetPassword.get('email')?.hasError('email')) {
+          <span>Please enter a valid email address.</span>
+          }
+        </div>
+      </div>
+      <button class="btn disabled:cursor-not-allowed flex gap-5 justify-center items-center">
+        <span>Send Email</span>
+        @if (resetPassword.loading) {
+        <div class="flex justify-center items-center">
+          <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+        </div>
+        }
+      </button>
+      @if (!resetPassword.forgetPasswordMsgError) {
+      <div class="text-md text-green-500 mt-3 text-center">
+        <span>{{ resetPassword.forgetPasswordMsg }}</span>
+      </div>
+      }
+      @if (resetPassword.forgetPasswordMsgError) {
+      <div class="text-md text-red-500 mt-3 text-center">
+        <span>{{ resetPassword.forgetPasswordMsg }}</span>
+      </div>
+      }
+      @if (resetPassword.errorMsg !== null) {
+      <div class="text-md text-red-500 mt-3 text-center">
+        <span>{{ resetPassword.errorMsg }}</span>
+      </div>
+      }
+    </form>
+  </div>
+</section>

@@ -1,0 +1,157 @@
+<!-- Loader -->
+@if (loading) {
+<app-loader></app-loader>
+}
+
+@if (!loading) {
+<div class="w-[95%] mx-auto p-6">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Product Image -->
+    <div class="lg:col-span-5">
+      <div class="sticky top-6">
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <owl-carousel-o [options]="customOptions">
+            @for(slide of detailsData().images; track slide._id + '-second') {
+            <ng-template carouselSlide [id]="slide._id">
+              <div class="aspect-square p-6 flex items-center justify-center">
+                <img [src]="slide" class="max-w-full max-h-full object-contain transition-transform duration-300"
+                  alt="Product image" loading="lazy">
+              </div>
+            </ng-template>
+            }
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+    <!-- Product Details -->
+    <div class="lg:col-span-7">
+      <div class="space-y-6">
+        <!-- Category, Brand -->
+        <div class="flex items-center gap-4 text-sm flex-wrap">
+          <div class="flex items-center gap-2">
+            <img [src]="detailsData()?.category?.image" [alt]="detailsData()?.category?.name"
+              class="w-6 h-6 rounded flex-shrink-0">
+            <span class="text-gray-600">{{detailsData()?.category?.name}}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <img [src]="detailsData()?.brand?.image" [alt]="detailsData()?.brand?.name"
+              class="w-6 h-6 rounded flex-shrink-0">
+            <span class="text-gray-600">{{detailsData()?.brand?.name}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- title -->
+      <h1 class="text-xl sm:text-3xl font-bold text-gray-900 mt-4 break-words">
+        {{detailsData()?.title}}
+      </h1>
+      <!-- Rating, Reviews -->
+      <div class="mt-4">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <div class="flex">
+              @for (star of [1, 2, 3, 4, 5]; track star) {
+              <i class="w-5 h-5 fa fa-star"
+                [class]="star <= detailsData().ratingsAverage ? 'text-yellow-400' : 'text-gray-300'"></i>
+              }
+            </div>
+            <span class="text-lg font-semibold number">{{detailsData().ratingsAverage}}</span>
+            <span class="text-gray-500 text-sm number">({{detailsData().ratingsQuantity}} reviews)</span>
+          </div>
+        </div>
+      </div>
+      <!-- Price -->
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl sm:text-3xl font-bold text-green-500">
+            EGP <span class="number">{{detailsData()?.price}}</span>
+          </span>
+          <!-- @if (detailsData()?.priceAfterDiscount < detailsData()?.price) {
+
+            } -->
+          <!-- <div *ngIf="(detailsData()?.priceAfterDiscount) < (detailsData()?.price)"
+            class="inline-block bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded"
+            >
+            Save EGP {{detailsData().price - detailsData().priceAfterDiscount}}
+            </div> -->
+        </div>
+      </div>
+      <!-- Stock -->
+      <div class="mt-4">
+        <div class="flex items-center gap-2">
+          <div class="flex sm:items-center gap-4 flex-wrap">
+            <div class="flex items-center gap-4">
+              <div
+                [class]="detailsData().quantity > 0 ? 'w-3 h-3 bg-green-500 rounded-full aspect-[1/1]' : 'w-3 h-3 bg-red-500 rounded-full aspect-[1/1]'">
+              </div>
+              <span [class]="detailsData().quantity > 0 ? 'text-green-500 font-medium' : 'text-red-500 font-medium'">
+                {{detailsData()?.quantity > 0 ? 'In Stock' : 'Out of Stock'}}
+              </span>
+            </div>
+            @if (detailsData()?.quantity > 0) {
+            <span class="text-gray-500">
+              (<span class="number">{{detailsData()?.quantity}}</span> Available)
+            </span>
+            }
+            <div>
+              <h5 class="text-meduim text-gray-500">Sold (<span class="number">{{detailsData()?.sold}}</span>) Times
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Description -->
+      <div class="mt-3">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Product Description</h3>
+        <div class="text-gray-700">
+          @for (line of descriptionLines; track $index + '-first') {
+          <p class="mb-2 flex items-center gap-2">
+            <span class="bg-green-500 mt-1 h-1 w-1 aspect-[1/1] rounded-full inline-block"></span>
+            <span>{{line}}</span>
+          </p>
+          }
+        </div>
+      </div>
+      <div class="mt-4 relative">
+
+        @if (subLoadingID == detailsData()?.id) {
+        <div class="absolute inset-0 w-full h-full bg-transparent cursor-not-allowed z-10"></div>
+        }
+
+        <div class="grid grid-cols-12 gap-5" [ngClass]="{'blur-sm': subLoadingID == detailsData()?.id}">
+          <button (click)="addToCart(detailsData()?.id)" [disabled]="detailsData()?.quantity == 0"
+            class="btn col-span-12 sm:col-span-7">Add To
+            Cart</button>
+          <button (click)="toggleWishlist(detailsData()?.id)" class="btn-danger col-span-12 sm:col-span-5">
+            @if (isInWishlist(detailsData()?.id)) {
+            Remove From Wish List
+            } @else {
+            Add To Wish List
+            }
+          </button>
+        </div>
+      </div>
+      <div class="mt-6 text-gray-500 border-t pt-7">
+        <div class="grid grid-cols-1 sm:grid-cols-2 text-sm gap-4">
+          <div>
+            <span>Category:</span>
+            <span class="ms-2 text-gray-700">{{detailsData()?.subcategory[0].name}}</span>
+          </div>
+          <div>
+            <span>ID:</span>
+            <span class="bg-gray-50 rounded-md px-2 py-1 ms-2 text-gray-700 number">{{detailsData()?.id}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="mt-4">
+    <owl-carousel-o [options]="customOptions">
+      @for (slide of detailsData().images; track slide._id + '-second') {
+      <ng-template carouselSlide [id]="slide._id">
+        <img [src]="slide" [alt]="slide.alt" [title]="slide.title" class="w-full h-auto rounded-lg p-3 max-h-[70vh]">
+      </ng-template>
+      }
+    </owl-carousel-o>
+  </div> -->
+</div>
+}

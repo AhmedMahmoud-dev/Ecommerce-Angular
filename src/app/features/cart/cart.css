@@ -1,0 +1,7 @@
+@media screen and (max-width: 320px) {
+  .custom {
+    flex-direction: column !important;
+    align-items: start !important;
+    gap: 12px m !important;
+  }
+}

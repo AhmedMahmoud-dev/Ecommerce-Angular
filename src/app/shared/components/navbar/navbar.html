@@ -1,0 +1,89 @@
+<nav class="bg-gray-200">
+  <div class="w-[95%] mx-auto flex flex-wrap items-center justify-between p-4">
+    <a routerLink="/home" class="flex items-center space-x-3 mr-5 rtl:space-x-reverse">
+      <img src="images/freshcart-logo.svg" class="h-8" alt="freshcart-logo" />
+    </a>
+    <button data-collapse-toggle="navbar-default" type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center cursor-pointer text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15" />
+      </svg>
+    </button>
+    <div class="grow justify-between hidden w-full lg:flex lg:w-auto" id="navbar-default">
+      <ul
+        class="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-l lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0 text-gray-400">
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/home"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Home</a>
+        </li>
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/products"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Products</a>
+        </li>
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/categories"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Categories</a>
+        </li>
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/brands"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Brands</a>
+        </li>
+        @if (isLogedIn) {
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/cart"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Cart</a>
+        </li>
+        <li>
+          <a routerLinkActive="text-green-500" routerLink="/wish-list"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Wish List</a>
+        </li>
+        }
+      </ul>
+      <ul
+        class="font-medium flex flex-col items-center p-4 lg:p-0 mt-4 border border-gray-100 rounded-l lg:flex-row lg:space-x-3 rtl:space-x-reverse lg:mt-0 lg:border-0 text-gray-700">
+        <li class="flex space-x-3">
+          <a href="https://facebook.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-facebook"></i></a>
+          <a href="https://x.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-tiktok"></i></a>
+          <a href="https://linkedin.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-linkedin"></i></a>
+          <a href="https://youtube.com" target="_blank" class="hover:text-green-500 transition-colors duration-200"
+            aria-current="page"><i class="fa fa-brands fa-youtube"></i></a>
+        </li>
+        @if (!isLogedIn) {
+        <li class="text-gray-400">
+          <a routerLinkActive="text-green-500" routerLink="/login"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Login</a>
+        </li>
+        <li class="text-gray-400">
+          <a routerLinkActive="text-green-500" routerLink="/signup"
+            class="block py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Register</a>
+        </li>
+        }
+        @if (isLogedIn) {
+        <li class="text-gray-400">
+          <a (click)="signOut()"
+            class="block cursor-pointer py-2 px-3 rounded-sm lg:p-0 hover:text-green-500 transition-colors duration-200"
+            aria-current="page">Logout</a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

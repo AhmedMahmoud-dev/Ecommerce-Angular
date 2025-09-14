@@ -1,0 +1,35 @@
+<div
+  class="cursor-pointer card p-3 border-gray-300 border rounded-md group/card overflow-hidden mx-auto w-[90%] sm:w-full relative"
+  [ngClass]="{'blur-sm': subLoadingID == productData?._id}">
+  @if (subLoadingID == productData?._id) {
+  <div class="absolute inset-0 w-full h-full bg-transparent cursor-not-allowed z-10"></div>
+  }
+  <div class="flex flex-col gap-3" [routerLink]="['/productdetails', productData?._id]">
+    <div class="flex flex-col gap-3"> <img [src]="productData?.imageCover" [alt]="productData?.category?.name"
+        class="w-full h-full">
+      <h3 class="text-green-500 text-md"> {{productData?.category?.name}} </h3>
+      <h4 class="font-bold line-clamp-1">{{productData?.title}}</h4>
+    </div>
+    <div class="flex justify-between items-center"> <span class="number">{{productData?.price}} EGP</span>
+      <div class="flex justify-between items-center px-2 py-1 bg-green-50 rounded-full"> <i
+          class="fa fa-star text-yellow-400 text-xs"></i> <span
+          class="text-xs number">{{productData?.ratingsAverage}}</span> <span
+          class="text-xs number">({{productData?.ratingsQuantity}})</span> </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-12 items-center gap-3 h-full">
+    <button (click)="addToCart(productData?._id)"
+      class="btn mt-3 duration-200 lg:translate-y-[130%] lg:group-hover/card:translate-y-0 col-span-10">
+      Add To Cart
+    </button>
+    <!-- Heroicons heart outline -->
+    <button class="col-span-2 text-gray-300 hover:text-red-500 transition-colors duration-200 text-2xl cursor-pointer"
+      (click)="toggleWishList(productData?._id)">
+      @if (isInWishlist(productData?._id)) {
+      <i class="fas fa-heart text-red-500"></i>
+      } @else {
+      <i class="fas fa-heart"></i>
+      }
+    </button>
+  </div>
+</div>

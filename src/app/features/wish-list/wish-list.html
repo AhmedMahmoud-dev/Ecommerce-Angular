@@ -2,7 +2,11 @@
 <app-loader></app-loader>
 }
 
-@if (!loading && count !== 0) {
+@if (!loading) {
+
+@if (count === 0 && !loading) {
+<app-empty-cart name="Wish List"></app-empty-cart>
+} @else {
 <div class="w-[95%] mx-auto px-4">
   <!-- Wish List Header -->
   <div class="bg-white rounded-lg shadow-sm p-6 my-6">
@@ -85,8 +89,4 @@
   </div>
 </div>
 }
-
-
-@if (count === 0 && !loading) {
-<app-empty-cart name="Wish List"></app-empty-cart>
 }
